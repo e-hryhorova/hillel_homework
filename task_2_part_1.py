@@ -1,0 +1,11 @@
+a = [10,11,2,3,5,8,23,11,2,5,76,43,2,32,76,3,10,0,1]
+b = list(set(a))
+print('list without duplicates', b)
+b.sort(reverse=True)
+print(b)
+print('3 max elements in the list:', b[:3])
+min_value = min(a)
+print(min_value)
+min_index = a.index(min_value)
+print('index of min element is', min_index)
+print(a[::-1])
