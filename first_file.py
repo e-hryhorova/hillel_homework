@@ -7,3 +7,4 @@ print(type(my_list))
 x = 18
 print(dir(x))
 print(x.__class__)
+
