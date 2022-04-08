@@ -3,9 +3,10 @@ def cache_decorator(f):
 
     def inner_decorator(*args):
         inner_decorator.ncalls += 1
-        if args not in cache and f(*args):
+        if args not in cache:
             i = f(*args)
             cache[args] = i
+            print(i)
             return i
         else:
             print(f"Function executed with counter = {inner_decorator.ncalls}, function result = {f(*args)}")
@@ -22,3 +23,4 @@ def foo(n, m):
 
 foo(200, 180)
 foo(200, 180)
+foo(200, 23)

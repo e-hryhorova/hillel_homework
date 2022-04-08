@@ -4,7 +4,7 @@ import functools
 def my_decorator2(f):
     @functools.wraps(f)
     def inner_decorator(n):
-        if type(n) == int:
+        if type(n) is int:
             print(f(n))
         else:
             raise ValueError("string type is not supported")
