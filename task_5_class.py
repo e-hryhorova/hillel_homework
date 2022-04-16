@@ -13,10 +13,13 @@ class ProcessInput:
         return self.a * self.b
 
     def divide_numbers(self):
-        return self.a // self.b
+        try:
+            return self.a // self.b
+        except ZeroDivisionError:
+            print('Division by zero!')
 
 
-process_input = ProcessInput(a=20, b=10)
+process_input = ProcessInput(a=20, b=0)
 print(process_input.add_numbers())
 print(process_input.subtract_numbers())
 print(process_input.multiple_numbers())
