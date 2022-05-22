@@ -1,0 +1,29 @@
+user: admin
+
+password: admin123
+
+new_user_name:
+  name_1: E
+  name_2: 1234!
+  name_empty: ''
+  correct_name: evgeniya
+
+new_user_password:
+  password_1: 1234
+  password_2: eh1234_
+  password_3: evgeniya
+  password_empty: ''
+  correct_password: evhr12!!
+
+password_confirm:
+  cpassword_1: evhr12!!
+  cpassword_2: eh1234_
+  cpassword_3: ' '
+  cpassword_4: evhr12!
+  cpassword_5: evhr12!!
+
+update:
+  update_user: 'evg_hr'
+  update_first_name: 'evgeniya'
+  update_last_name: 'hryhorova'
+  update_email: '2@email.com'
