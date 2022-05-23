@@ -59,5 +59,5 @@ class PagesActions:
             table_values = table.text
             assert user_name not in table_values
         except():
-            logging.error('user is not deleted')
+            logging.error('user exists')
             return False

@@ -19,6 +19,11 @@ os.system("docker run -d --name schr -p 4444:4444 -p 5900:5900 selenium/standalo
 class TestSuite:
     testing_data = yaml.safe_load(open("test_data.yaml"))
 
+    def test_user_not_exist(self, driver_init):
+        pa.login_to_app(driver_init, self.testing_data['user'], self.testing_data['password'])
+        driver_init.find_element(By.XPATH, '//*[text()="Users"]').click()
+        pa.validate_user_not_in_users_table(driver_init, self.testing_data['new_user_name']['correct_name'])
+
     def test_user_can_create_valid_new_user(self, driver_init):
         pa.login_to_app(driver_init, self.testing_data['user'], self.testing_data['password'])
         pa.move_to_add_user_window_after_login(driver_init)
