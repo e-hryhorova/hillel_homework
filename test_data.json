@@ -1,0 +1,9 @@
+{
+  "users": {
+    "admin": "admin123"
+  },
+  "urls": {
+    "main": "https://www.aqa.science/",
+    "users": "users/"
+  }
+}
