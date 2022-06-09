@@ -6,6 +6,23 @@ import logging
 
 BASE_URL = 'https://www.aqa.science/admin'
 
+# create logger
+logger = logging.getLogger('Test_ui_crude')
+logger.setLevel(logging.DEBUG)
+
+# create file handler and set level to debug
+file_handler = logging.FileHandler("logging_ui.log")
+file_handler.setLevel(logging.DEBUG)
+
+# create formatter
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+# add formatter to file_handler
+file_handler.setFormatter(formatter)
+
+# add file_handler to logger
+logger.addHandler(file_handler)
+
 
 class PagesActions:
 
@@ -22,9 +39,9 @@ class PagesActions:
             password_field.send_keys(password)
             submit_login_button = driver.find_element(By.XPATH, "//input[@type='submit'][@value='Log in']")
             submit_login_button.click()
-            logging.info('seems login is ok')
+            logger.info('seems login is ok')
         except():
-            logging.error('something went wrong')
+            logger.error('something went wrong')
 
     @staticmethod
     def move_to_add_user_window_after_login(driver: webdriver):
@@ -34,7 +51,7 @@ class PagesActions:
             header_add_user_window = driver.find_element(By.XPATH, '//*[text()="Add user"]')
             assert header_add_user_window.text == 'Add user'
         except():
-            logging.error('add user window is not opened')
+            logger.error('add user window is not opened')
             return False
 
     @staticmethod
@@ -47,9 +64,9 @@ class PagesActions:
             driver.find_element(By.XPATH, '//*[@id="id_email"]').send_keys(email)
             driver.find_element(By.XPATH, '//*[@id="id_is_staff"]').click()
             driver.find_element(By.XPATH, '//*[@id="user_form"]/div/div/input[1]').click()
-            logging.info('new data sent successfully')
+            logger.info('new data sent successfully')
         except():
-            logging.error('new data is not set')
+            logger.error('new data is not set')
             return False
 
     @staticmethod
@@ -59,5 +76,5 @@ class PagesActions:
             table_values = table.text
             assert user_name not in table_values
         except():
-            logging.error('user exists')
+            logger.error('user exists')
             return False

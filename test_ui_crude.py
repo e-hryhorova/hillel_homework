@@ -8,8 +8,22 @@ from pages_actions import PagesActions
 
 BASE_URL = 'https://www.aqa.science/admin'
 
-logging.basicConfig(filename='testing.log', level=logging.DEBUG)
-LOGGER = logging.getLogger()
+# create logger
+logger = logging.getLogger('Test_ui_crude')
+logger.setLevel(logging.DEBUG)
+
+# create file handler and set level to debug
+file_handler = logging.FileHandler("logging_ui.log")
+file_handler.setLevel(logging.DEBUG)
+
+# create formatter
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+# add formatter to file_handler
+file_handler.setFormatter(formatter)
+
+# add file_handler to logger
+logger.addHandler(file_handler)
 
 pa = PagesActions()
 
@@ -23,7 +37,7 @@ class TestSuite:
         pa.login_to_app(driver_init, self.testing_data['user'], self.testing_data['password'])
         driver_init.find_element(By.XPATH, '//*[text()="Users"]').click()
         pa.validate_user_not_in_users_table(driver_init, self.testing_data['new_user_name']['correct_name'])
-        LOGGER.info(f"User with the name {self.testing_data['new_user_name']['correct_name']} doesn't exist")
+        logger.info(f"User with the name {self.testing_data['new_user_name']['correct_name']} doesn't exist")
 
     def test_user_can_create_valid_new_user(self, driver_init):
         pa.login_to_app(driver_init, self.testing_data['user'], self.testing_data['password'])
@@ -37,9 +51,9 @@ class TestSuite:
         save = driver_init.find_element(By.XPATH, '//*[@id="user_form"]/div/div/input[1]')
         save.click()
         message = driver_init.find_element(By.XPATH, '//*[@id="main"]/div/ul/li')
-        assert self.testing_data['new_user_name']['correct_name'] in message.text, logging.error(
+        assert self.testing_data['new_user_name']['correct_name'] in message.text, logger.error(
             'something wrong, user is not displayed in message')
-        logging.info('message about user creation is displayed')
+        logger.info('message about user creation is displayed')
 
     def test_error_message_with_empty_all_required_fields(self, driver_init):
         pa.login_to_app(driver_init, self.testing_data['user'], self.testing_data['password'])
@@ -47,8 +61,8 @@ class TestSuite:
         save = driver_init.find_element(By.XPATH, '//*[@id="user_form"]/div/div/input[1]')
         save.click()
         error_message = driver_init.find_element(By.XPATH, '//*[@id="user_form"]/div/p')
-        assert 'Please correct the errors below' in error_message.text, logging.error('no error message appears')
-        logging.info('error message appears')
+        assert 'Please correct the errors below' in error_message.text, logger.error('no error message appears')
+        logger.info('error message appears')
 
     def test_get_error_with_mismatch_password_and_confirm_password(self, driver_init):
         pa.login_to_app(driver_init, self.testing_data['user'], self.testing_data['password'])
@@ -63,9 +77,9 @@ class TestSuite:
         save.click()
         error_message_password_field = driver_init.find_element(By.XPATH,
                                                                 '//*[@id="user_form"]/div/fieldset/div[3]/ul/li')
-        assert 'The two password fields didn’t match' in error_message_password_field.text, logging.error(
+        assert 'The two password fields didn’t match' in error_message_password_field.text, logger.error(
             'no error message appears')
-        logging.info('error message appears')
+        logger.info('error message appears')
 
     def test_error_message_with_invalid_password(self, driver_init):
         pa.login_to_app(driver_init, self.testing_data['user'], self.testing_data['password'])
@@ -85,16 +99,16 @@ class TestSuite:
         error_message_password_field = driver_init.find_element(By.XPATH,
                                                                 '//*[@id="user_form"]/div/fieldset/div[3]/ul/li')
         assert 'This password is too short. It must contain at least 8 characters' in error_message_password_field.text, \
-            logging.error('no error message appears')
-        logging.info('error message appears')
+            logger.error('no error message appears')
+        logger.info('error message appears')
 
     def test_created_user_is_in_users_table(self, driver_init):
         pa.login_to_app(driver_init, self.testing_data['user'], self.testing_data['password'])
         navigate_to_users_table = driver_init.find_element(By.XPATH, '//*[text()="Users"]').click()
         user_name = self.testing_data['new_user_name']['correct_name']
         user_row = driver_init.find_element(By.XPATH, f'//tbody/tr[th[a[text()="{user_name}"]]]')
-        assert user_name in user_row.text, logging.error('created user is not found in the users table')
-        logging.info('user is displayed in users table')
+        assert user_name in user_row.text, logger.error('created user is not found in the users table')
+        logger.info('created user is displayed in users table')
 
     def test_user_can_update_user_info(self, driver_init):
         pa.login_to_app(driver_init, self.testing_data['user'], self.testing_data['password'])
@@ -105,6 +119,7 @@ class TestSuite:
                             self.testing_data['update']['update_first_name'],
                             self.testing_data['update']['update_last_name'],
                             self.testing_data['update']['update_email'])
+        logger.info('new name, last name and email of user were inputted in the text boxes')
 
     def test_user_info_is_updated(self, driver_init):
         pa.login_to_app(driver_init, self.testing_data['user'], self.testing_data['password'])
@@ -114,14 +129,17 @@ class TestSuite:
         last_name = self.testing_data['update']['update_last_name']
         email = self.testing_data['update']['update_email']
         user_name_actual = driver_init.find_element(By.XPATH, f'//tbody/tr[th[a[text()="{user_name}"]]]/th')
-        assert user_name == user_name_actual.text, logging.info('user name is updated')
+        assert user_name == user_name_actual.text
+        logger.info('user name is updated')
         first_name_actual = driver_init.find_element(By.XPATH, f'//tbody/tr[th[a[text()="{user_name}"]]]/td[3]')
-        assert first_name == first_name_actual.text, logging.info('first name is updated')
+        assert first_name == first_name_actual.text
+        logger.info('first name is updated')
         last_name_actual = driver_init.find_element(By.XPATH, f'//tbody/tr[th[a[text()="{user_name}"]]]/td[4]')
-        assert last_name == last_name_actual.text, logging.info('last_name is updated')
+        assert last_name == last_name_actual.text
+        logger.info('last_name is updated')
         email_actual = driver_init.find_element(By.XPATH, f'//tbody/tr[th[a[text()="{user_name}"]]]/td[2]')
-        assert email == email_actual.text, logging.error('data is not updated properly')
-        logging.info('email is updated')
+        assert email == email_actual.text, logger.error('email is not updated properly')
+        logger.info('email is updated')
 
     def test_user_can_delete_user(self, driver_init):
         pa.login_to_app(driver_init, self.testing_data['user'], self.testing_data['password'])
@@ -130,4 +148,4 @@ class TestSuite:
         driver_init.find_element(By.XPATH, '//*[text()="Delete"]').click()
         driver_init.find_element(By.XPATH, '//*[@id="content"]/form/div/input[2]').click()
         pa.validate_user_not_in_users_table(driver_init, self.testing_data['update']['update_user'])
-        logging.info('user is deleted')
+        logger.info('user is deleted')
