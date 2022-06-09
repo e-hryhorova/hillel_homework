@@ -10,7 +10,7 @@ BASE_URL = 'https://www.aqa.science/admin'
 class PagesActions:
 
     logging.basicConfig(filename='testing.log', level=logging.DEBUG)
-    logger = logging.getLogger()
+    LOGGER = logging.getLogger()
 
     @staticmethod
     def login_to_app(driver: webdriver, user: str, password: str):

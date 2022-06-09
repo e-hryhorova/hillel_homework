@@ -59,10 +59,14 @@ class Car(Vehicle):
             f"Parameters: {car_type} for transporting max weight {self.weight} kg")
 
 
-busik1 = Bus("Bus", "Bohdan", "yellow", 45.8, "Unknown")
+busik1 = Bus("Bus", "Bohdan", "yellow", 45, "Lozova-Prohody")
 print(busik1.vehicle_type)
 busik1.count()
 busik1.display_info()
+busik1.route = "Unknown"
+busik1.number_of_seats = 34.9
+busik1.display_info()
+
 
 busik2 = Bus("Bus", "Ikarus", "white", 80, "Odesa-Dnepr")
 busik2.count()

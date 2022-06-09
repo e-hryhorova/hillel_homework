@@ -4,7 +4,7 @@ from selenium import webdriver
 
 import pytest
 
-
+import logging
 # @pytest.fixture(scope='module')
 # def docker():
 #     subprocess.run("docker run -d --name schr -p 4444:4444 -p 5900:5900 selenium/standalone-chrome-debug", shell=True,
@@ -21,6 +21,8 @@ def driver_init():
     driver = webdriver.Remote(command_executor='http://localhost:4444/wd/hub', options=options)
     yield driver
     driver.quit()
+
+
 
 
 

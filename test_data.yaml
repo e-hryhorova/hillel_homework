@@ -4,7 +4,6 @@ password: admin123
 
 new_user_name:
   name_1: E
-  name_2: 1234!
   name_empty: ''
   correct_name: evgeniya
 
