@@ -4,7 +4,7 @@ import pathlib
 import requests
 
 
-current_dir = pathlib.Path(__file__)
+current_dir = pathlib.Path(__file__).parent
 file_name = 'test_data.json'
 file_name = current_dir.joinpath(file_name)
 # create logger
@@ -12,6 +12,7 @@ logger = logging.getLogger('Name_of_Logger')
 logger.setLevel(logging.DEBUG)
 
 # create file handler and set level to debug
+
 file_handler = logging.FileHandler("logging_api.log")
 file_handler.setLevel(logging.DEBUG)
 
