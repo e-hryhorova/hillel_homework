@@ -36,7 +36,7 @@ os.system("docker run -d --name schr -p 4444:4444 -p 5900:5900 selenium/standalo
 
 
 class TestSuite:
-    testing_data = yaml.safe_load(open("test_data.yaml"))
+    testing_data = yaml.safe_load(open(file_name))
 
     def test_user_not_exist(self, driver_init):
         pa.login_to_app(driver_init, self.testing_data['user'], self.testing_data['password'])
