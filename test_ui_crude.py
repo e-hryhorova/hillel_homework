@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from pages_actions import PagesActions
 
 current_dir = pathlib.Path(__file__).parent
-file_name = 'test_data.jaml'
+file_name = 'test_data.yaml'
 file_name = current_dir.joinpath(file_name)
 
 BASE_URL = 'https://www.aqa.science/admin'
