@@ -1,8 +1,12 @@
 import json
 import logging
-
+import pathlib
 import requests
 
+
+current_dir = pathlib.Path(__file__)
+file_name = 'test_data.json'
+file_name = current_dir.joinpath(file_name)
 # create logger
 logger = logging.getLogger('Name_of_Logger')
 logger.setLevel(logging.DEBUG)
@@ -22,7 +26,7 @@ logger.addHandler(file_handler)
 
 
 class TestSuit:
-    with open(f"test_data.json", "r") as f:
+    with open(file_name, "r") as f:
         testing_data = json.load(f)
 
     save_url = []
